@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import InvitationFlow from './InvitationFlow';
+import ShareInvitation from './ShareInvitation';
 
 interface FamilyMember {
   id: number;
@@ -53,6 +54,7 @@ const FamilyManagement = () => {
   ]);
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [memberToRemove, setMemberToRemove] = useState<FamilyMember | null>(null);
 
   const handleInvitationSent = (contact: string, method: 'email' | 'phone', name: string) => {
@@ -241,16 +243,35 @@ const FamilyManagement = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Участники семьи</h2>
           
-          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-            <DialogTrigger asChild>
-              <Button 
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold shadow-lg shadow-green-500/20"
-                disabled={members.length >= 5}
-              >
-                <Icon name="UserPlus" size={20} className="mr-2" />
-                Добавить участника
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-3">
+            <Dialog open={isShareDialogOpen} onOpenChange={setIsShareDialogOpen}>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline"
+                  className="border-gray-700 text-gray-300 hover:border-green-500 hover:text-green-500"
+                >
+                  <Icon name="Share2" size={20} className="mr-2" />
+                  Поделиться ссылкой
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl">Пригласить в семью</DialogTitle>
+                </DialogHeader>
+                <ShareInvitation onClose={() => setIsShareDialogOpen(false)} />
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button 
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold shadow-lg shadow-green-500/20"
+                  disabled={members.length >= 5}
+                >
+                  <Icon name="UserPlus" size={20} className="mr-2" />
+                  Добавить участника
+                </Button>
+              </DialogTrigger>
             <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
               <DialogHeader>
                 <DialogTitle className="text-2xl">Добавить участника в семью</DialogTitle>

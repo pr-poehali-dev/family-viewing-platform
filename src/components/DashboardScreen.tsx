@@ -6,9 +6,12 @@ import HeroSection from './HeroSection';
 import MovieRow from './MovieRow';
 import FamilyManagement from './FamilyManagement';
 
+type Category = 'all' | 'drama' | 'comedy' | 'thriller' | 'fantasy' | 'action';
+
 const DashboardScreen = () => {
   const [activeTab, setActiveTab] = useState<'catalog' | 'family'>('catalog');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<Category>('all');
 
   const trendingMovies = [
     { id: 1, title: 'Последняя капля', genre: 'Драма', rating: 8.9, year: 2024, isNew: true },
@@ -76,7 +79,39 @@ const DashboardScreen = () => {
 
             <div className="flex items-center gap-4">
               {activeTab === 'catalog' && (
-                <div className="relative w-80">
+                <>
+                  <nav className="flex gap-4">
+                    {[
+                      { id: 'all' as Category, label: 'Все', icon: 'Film' },
+                      { id: 'drama' as Category, label: 'Драмы', icon: 'Heart' },
+                      { id: 'comedy' as Category, label: 'Комедии', icon: 'Smile' },
+                      { id: 'thriller' as Category, label: 'Триллеры', icon: 'Zap' },
+                      { id: 'fantasy' as Category, label: 'Фантастика', icon: 'Sparkles' },
+                      { id: 'action' as Category, label: 'Боевики', icon: 'Flame' },
+                    ].map((category) => (
+                      <button
+                        key={category.id}
+                        onClick={() => setSelectedCategory(category.id)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          selectedCategory === category.id
+                            ? 'bg-green-500 text-black'
+                            : 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800'
+                        }`}
+                      >
+                        <Icon name={category.icon as any} size={16} />
+                        {category.label}
+                      </button>
+                    ))}
+                  </nav>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 mt-4">
+            <div className="flex-1">
+              {activeTab === 'catalog' && (
+                <div className="relative max-w-md">
                   <Icon name="Search" size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                   <Input
                     placeholder="Поиск фильмов и сериалов..."
@@ -86,13 +121,13 @@ const DashboardScreen = () => {
                   />
                 </div>
               )}
-
-              <Avatar className="w-10 h-10 border-2 border-green-500">
-                <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-black font-semibold">
-                  АП
-                </AvatarFallback>
-              </Avatar>
             </div>
+
+            <Avatar className="w-10 h-10 border-2 border-green-500">
+              <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-black font-semibold">
+                АП
+              </AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </header>
