@@ -46,12 +46,10 @@ const DashboardScreen = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center rounded-lg">
                   <Icon name="Play" size={24} className="text-black" />
                 </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent">
-                  START
-                </span>
+                <span className="text-2xl font-bold bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent"></span>
               </div>
 
               <nav className="flex gap-6">
