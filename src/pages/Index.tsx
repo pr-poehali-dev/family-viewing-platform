@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import WelcomeScreen from '@/components/WelcomeScreen';
 import OnboardingScreen from '@/components/OnboardingScreen';
 import ProfileSelector from '@/components/ProfileSelector';
 import PersonalDashboard from '@/components/PersonalDashboard';
 import DashboardScreen from '@/components/DashboardScreen';
 
-type Screen = 'onboarding' | 'profile-selector' | 'personal' | 'main';
+type Screen = 'welcome' | 'onboarding' | 'profile-selector' | 'personal' | 'main';
 
 interface Profile {
   id: number;
@@ -14,7 +15,7 @@ interface Profile {
 }
 
 const Index = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('onboarding');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   const profiles: Profile[] = [
@@ -23,6 +24,10 @@ const Index = () => {
     { id: 3, name: 'Дмитрий', initials: 'ДИ', color: 'bg-gradient-to-br from-blue-500 to-blue-600' },
     { id: 4, name: 'Анна', initials: 'АС', color: 'bg-gradient-to-br from-purple-500 to-purple-600' },
   ];
+
+  const handleWelcomeComplete = () => {
+    setCurrentScreen('onboarding');
+  };
 
   const handleOnboardingComplete = () => {
     setCurrentScreen('profile-selector');
@@ -43,6 +48,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {currentScreen === 'welcome' && (
+        <WelcomeScreen onGetStarted={handleWelcomeComplete} />
+      )}
+
       {currentScreen === 'onboarding' && (
         <OnboardingScreen onComplete={handleOnboardingComplete} />
       )}
