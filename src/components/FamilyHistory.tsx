@@ -99,10 +99,19 @@ const FamilyHistory = () => {
             className="bg-gray-950/50 rounded-xl p-4 border border-gray-800 hover:border-green-500/50 transition-all group"
           >
             <div className="flex items-center gap-4">
-              <div className="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-800 to-gray-900">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Icon name="Film" size={32} className="text-gray-700" />
-                </div>
+              <div className="relative w-24 h-36 rounded-lg overflow-hidden flex-shrink-0">
+                <img 
+                  src={`/img/${[
+                    '1701ced8-0b79-4ea2-adc0-527790db323f.jpg',
+                    '6d974646-7e7e-4ef8-803a-fd5c8de68fe3.jpg',
+                    'e81af8c3-5602-41d2-9a8a-3f850c243f06.jpg',
+                    '4546b8b9-910b-400d-be66-4fe2c7fe83d6.jpg',
+                    '28c51c05-e39e-4d53-82a4-97063aecfa92.jpg',
+                    '1701ced8-0b79-4ea2-adc0-527790db323f.jpg'
+                  ][item.id - 1]}`}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
                 {item.progress < 100 && (
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800">
                     <div

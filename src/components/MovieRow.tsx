@@ -59,8 +59,18 @@ const MovieRow = ({ title, movies }: MovieRowProps) => {
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="relative overflow-hidden rounded-xl border border-gray-800 hover:border-green-500/50 transition-all hover:scale-105 cursor-pointer bg-gradient-to-br from-gray-900 to-gray-800">
-                  <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative group-hover/card:brightness-110 transition-all">
-                    <Icon name="Film" size={72} className="text-gray-700 group-hover/card:text-green-500 transition-colors" />
+                  <div className="aspect-video relative group-hover/card:brightness-110 transition-all">
+                    <img 
+                      src={`/img/${[
+                        '1701ced8-0b79-4ea2-adc0-527790db323f.jpg',
+                        '6d974646-7e7e-4ef8-803a-fd5c8de68fe3.jpg',
+                        'e81af8c3-5602-41d2-9a8a-3f850c243f06.jpg',
+                        '4546b8b9-910b-400d-be66-4fe2c7fe83d6.jpg',
+                        '28c51c05-e39e-4d53-82a4-97063aecfa92.jpg'
+                      ][index % 5]}`}
+                      alt={movie.title}
+                      className="w-full h-full object-cover"
+                    />
                     
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center">
                       <button

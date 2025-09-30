@@ -22,10 +22,12 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
         
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-          <div className="absolute inset-0 flex items-center justify-center opacity-30">
-            <Icon name="Film" size={400} className="text-gray-700" />
-          </div>
+        <div className="absolute inset-0">
+          <img 
+            src="/img/1701ced8-0b79-4ea2-adc0-527790db323f.jpg" 
+            alt="{heroMovie.title}"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="relative z-20 container mx-auto px-6 h-full flex items-center">
