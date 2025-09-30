@@ -15,7 +15,7 @@ interface Profile {
 }
 
 const Index = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('main');
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   const profiles: Profile[] = [
