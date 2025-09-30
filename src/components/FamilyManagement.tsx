@@ -118,7 +118,11 @@ const FamilyManagement = () => {
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
             <Icon name="CreditCard" size={32} className="text-green-500 mb-3" />
             <div className="text-3xl font-bold text-white mb-1">₽2069</div>
-            <div className="text-gray-400">в месяц</div>
+            <div className="text-gray-400">всего в месяц</div>
+            <div className="mt-3 pt-3 border-t border-gray-700">
+              <div className="text-lg font-semibold text-green-400">₽{Math.round(2069 / members.length)}</div>
+              <div className="text-xs text-gray-500">на каждого участника</div>
+            </div>
           </div>
 
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
