@@ -117,7 +117,7 @@ const FamilyManagement = () => {
             <p className="text-gray-400 text-lg">Управляйте участниками вашей подписки</p>
           </div>
           
-          <Badge className="bg-green-500/20 text-green-400 border-green-500/50 px-4 py-2 text-lg">
+          <Badge className="bg-red-500/20 text-red-400 border-red-500/50 px-4 py-2 text-lg">
             <Icon name="CheckCircle" size={18} className="mr-2" />
             Активна
           </Badge>
@@ -125,33 +125,33 @@ const FamilyManagement = () => {
 
         <div className="grid grid-cols-3 gap-6">
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
-            <Icon name="CreditCard" size={32} className="text-green-500 mb-3" />
+            <Icon name="CreditCard" size={32} className="text-red-500 mb-3" />
             <div className="text-3xl font-bold text-white mb-1">₽{familyPrice}</div>
             <div className="text-gray-400">всего в месяц</div>
             <div className="mt-3 pt-3 border-t border-gray-700">
-              <div className="text-lg font-semibold text-green-400">₽{pricePerMember}</div>
+              <div className="text-lg font-semibold text-red-400">₽{pricePerMember}</div>
               <div className="text-xs text-gray-500">на каждого участника</div>
             </div>
           </div>
 
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
-            <Icon name="Users" size={32} className="text-green-500 mb-3" />
+            <Icon name="Users" size={32} className="text-red-500 mb-3" />
             <div className="text-3xl font-bold text-white mb-1">{members.length}/5</div>
             <div className="text-gray-400">участников</div>
           </div>
 
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
-            <Icon name="Calendar" size={32} className="text-green-500 mb-3" />
+            <Icon name="Calendar" size={32} className="text-red-500 mb-3" />
             <div className="text-3xl font-bold text-white mb-1">15.02</div>
             <div className="text-gray-400">следующее списание</div>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-green-900/20 to-gray-900 rounded-2xl p-8 border border-green-500/30">
+      <div className="bg-gradient-to-br from-red-900/20 to-gray-900 rounded-2xl p-8 border border-red-500/30">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-            <Icon name="TrendingDown" size={28} className="text-green-400" />
+          <div className="w-14 h-14 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+            <Icon name="TrendingDown" size={28} className="text-red-400" />
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-1">Ваша экономия</h2>
@@ -162,11 +162,11 @@ const FamilyManagement = () => {
         <div className="grid grid-cols-2 gap-6 mb-6">
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
             <div className="flex items-center gap-3 mb-3">
-              <Icon name="User" size={24} className="text-green-500" />
+              <Icon name="User" size={24} className="text-red-500" />
               <span className="text-gray-400">Экономия на участника</span>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-green-400">₽{savingsPerMember}</span>
+              <span className="text-4xl font-bold text-red-400">₽{savingsPerMember}</span>
               <span className="text-lg text-gray-500">/месяц</span>
             </div>
             <div className="mt-2 text-sm text-gray-500">
@@ -176,11 +176,11 @@ const FamilyManagement = () => {
 
           <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
             <div className="flex items-center gap-3 mb-3">
-              <Icon name="Users" size={24} className="text-green-500" />
+              <Icon name="Users" size={24} className="text-red-500" />
               <span className="text-gray-400">Общая экономия семьи</span>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-green-400">₽{totalSavings}</span>
+              <span className="text-4xl font-bold text-red-400">₽{totalSavings}</span>
               <span className="text-lg text-gray-500">/месяц</span>
             </div>
             <div className="mt-2 text-sm text-gray-500">
@@ -192,7 +192,7 @@ const FamilyManagement = () => {
         <div className="bg-black/40 rounded-xl p-6 border border-gray-800">
           <div className="flex items-center justify-between mb-4">
             <span className="text-lg font-semibold">Выгода семейной подписки</span>
-            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 text-lg px-4 py-1">
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/50 text-lg px-4 py-1">
               -{savingsPercent}%
             </Badge>
           </div>
@@ -204,7 +204,7 @@ const FamilyManagement = () => {
               return (
                 <div key={count} className={`flex items-center gap-4 ${isActive ? 'opacity-100' : 'opacity-50'}`}>
                   <div className="flex items-center gap-2 w-32">
-                    <Icon name="Users" size={16} className={isActive ? 'text-green-500' : 'text-gray-600'} />
+                    <Icon name="Users" size={16} className={isActive ? 'text-red-500' : 'text-gray-600'} />
                     <span className={`text-sm font-medium ${isActive ? 'text-white' : 'text-gray-600'}`}>
                       {count} {count === 1 ? 'участник' : count < 5 ? 'участника' : 'участников'}
                     </span>
@@ -214,14 +214,14 @@ const FamilyManagement = () => {
                       <div
                         className={`h-full rounded-full transition-all ${
                           isActive
-                            ? 'bg-gradient-to-r from-green-500 to-green-400'
+                            ? 'bg-gradient-to-r from-red-500 to-red-400'
                             : 'bg-gradient-to-r from-gray-700 to-gray-600'
                         }`}
                         style={{ width: `${savings}%` }}
                       />
                     </div>
                   </div>
-                  <div className={`text-sm font-semibold w-16 text-right ${isActive ? 'text-green-400' : 'text-gray-600'}`}>
+                  <div className={`text-sm font-semibold w-16 text-right ${isActive ? 'text-red-400' : 'text-gray-600'}`}>
                     -{savings}%
                   </div>
                 </div>
@@ -266,7 +266,7 @@ const FamilyManagement = () => {
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
                 <Button 
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold shadow-lg shadow-green-500/20"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-green-600 hover:to-green-700 text-black font-semibold shadow-lg shadow-red-500/20"
                   disabled={members.length >= 5}
                 >
                   <Icon name="UserPlus" size={20} className="mr-2" />
@@ -288,8 +288,8 @@ const FamilyManagement = () => {
         </div>
 
         {availableSlots > 0 && (
-          <div className="mb-4 bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-            <p className="text-green-400">
+          <div className="mb-4 bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+            <p className="text-red-400">
               <Icon name="UserPlus" size={16} className="inline mr-2" />
               Доступно еще {availableSlots} {availableSlots === 1 ? 'место' : 'места'}
             </p>
@@ -303,8 +303,8 @@ const FamilyManagement = () => {
               className="bg-black/40 rounded-xl p-6 border border-gray-800 flex items-center justify-between hover:border-gray-700 transition-colors"
             >
               <div className="flex items-center gap-4">
-                <Avatar className="w-14 h-14 border-2 border-green-500">
-                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-black font-semibold text-lg">
+                <Avatar className="w-14 h-14 border-2 border-red-500">
+                  <AvatarFallback className="bg-gradient-to-br from-red-500 to-red-600 text-black font-semibold text-lg">
                     {member.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -313,7 +313,7 @@ const FamilyManagement = () => {
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                     {member.isOwner && (
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/50">
+                      <Badge className="bg-red-500/20 text-red-400 border-red-500/50">
                         Владелец
                       </Badge>
                     )}
@@ -330,7 +330,7 @@ const FamilyManagement = () => {
                       <>
                         <span className="text-gray-700">•</span>
                         <div className="flex items-center gap-1 text-sm text-gray-500">
-                          <Icon name={member.verificationMethod === 'email' ? 'Mail' : 'Phone'} size={14} className="text-green-500" />
+                          <Icon name={member.verificationMethod === 'email' ? 'Mail' : 'Phone'} size={14} className="text-red-500" />
                           <span>Подтвержден через {member.verificationMethod === 'email' ? 'email' : 'телефон'}</span>
                         </div>
                       </>

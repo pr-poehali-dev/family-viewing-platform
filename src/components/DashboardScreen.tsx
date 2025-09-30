@@ -46,10 +46,10 @@ const DashboardScreen = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-red-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center">
                   <Icon name="Play" size={24} className="text-black" />
                 </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent">
                   START
                 </span>
               </div>
@@ -62,7 +62,7 @@ const DashboardScreen = () => {
                   }}
                   className={`text-lg font-medium transition-colors ${
                     activeTab === 'catalog' 
-                      ? 'text-green-500' 
+                      ? 'text-red-500' 
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
@@ -72,7 +72,7 @@ const DashboardScreen = () => {
                   onClick={() => setActiveTab('family')}
                   className={`text-lg font-medium transition-colors flex items-center gap-2 ${
                     activeTab === 'family' 
-                      ? 'text-green-500' 
+                      ? 'text-red-500' 
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
@@ -110,7 +110,7 @@ const DashboardScreen = () => {
                         onClick={() => setSelectedCategory(category.id)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                           selectedCategory === category.id
-                            ? 'bg-green-500 text-black'
+                            ? 'bg-red-500 text-black'
                             : 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800'
                         }`}
                       >
@@ -139,8 +139,8 @@ const DashboardScreen = () => {
               )}
             </div>
 
-            <Avatar className="w-10 h-10 border-2 border-green-500">
-              <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-black font-semibold">
+            <Avatar className="w-10 h-10 border-2 border-red-500">
+              <AvatarFallback className="bg-gradient-to-br from-red-500 to-red-600 text-black font-semibold">
                 АП
               </AvatarFallback>
             </Avatar>

@@ -36,7 +36,7 @@ const ProfileSelector = ({ profiles: initialProfiles, currentProfileId, onSelect
     <>
       <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
         <div className="text-center max-w-4xl w-full px-6">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent">
             Кто смотрит?
           </h1>
           <p className="text-xl text-gray-400 mb-12">Выберите свой профиль для персональных рекомендаций</p>

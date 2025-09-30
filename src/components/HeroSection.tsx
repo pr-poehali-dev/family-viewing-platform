@@ -78,8 +78,8 @@ const HeroSection = () => {
               <Badge className="bg-red-500 text-white font-bold px-3 py-1 text-sm">
                 ХИТ
               </Badge>
-              <Badge className="bg-green-500/20 text-green-400 border-green-500/50 flex items-center gap-1">
-                <Icon name="Star" size={14} className="fill-green-400" />
+              <Badge className="bg-red-500/20 text-red-400 border-red-500/50 flex items-center gap-1">
+                <Icon name="Star" size={14} className="fill-red-400" />
                 {heroMovie.rating}
               </Badge>
             </div>
@@ -112,7 +112,7 @@ const HeroSection = () => {
               <Button
                 onClick={() => setShowPlayer(true)}
                 size="lg"
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-bold text-lg px-8 py-6 shadow-2xl shadow-green-500/30"
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-green-600 hover:to-green-700 text-black font-bold text-lg px-8 py-6 shadow-2xl shadow-red-500/30"
               >
                 <Icon name="Play" size={24} className="mr-2" />
                 Смотреть

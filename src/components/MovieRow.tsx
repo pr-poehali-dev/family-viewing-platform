@@ -84,10 +84,11 @@ const MovieRow = ({ title, movies }: MovieRowProps) => {
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ 
-                  transitionDelay: `${index * 100}ms`
+                  transitionDelay: `${index * 100}ms`,
+                  perspective: '1000px'
                 }}
               >
-                <div className="relative overflow-hidden rounded-xl border border-gray-800 hover:border-green-500/50 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20 cursor-pointer bg-gradient-to-br from-gray-900 to-gray-800">
+                <div className="relative overflow-hidden rounded-xl border border-red-900/50 hover:border-green-500/70 transition-all duration-300 cursor-pointer bg-gradient-to-br from-gray-900 to-gray-800 transform-gpu hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/30" style={{ transformStyle: 'preserve-3d' }}>
                   <div className="aspect-video relative group-hover/card:brightness-110 transition-all">
                     <img 
                       src={`/img/${[
@@ -117,8 +118,8 @@ const MovieRow = ({ title, movies }: MovieRowProps) => {
                     )}
 
                     <div className="absolute top-3 right-3">
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/50 flex items-center gap-1 backdrop-blur-sm">
-                        <Icon name="Star" size={12} className="fill-green-400" />
+                      <Badge className="bg-red-500/20 text-red-400 border-red-500/50 flex items-center gap-1 backdrop-blur-sm">
+                        <Icon name="Star" size={12} className="fill-red-400" />
                         {movie.rating}
                       </Badge>
                     </div>
