@@ -1,16 +1,38 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import MovieCatalog from './MovieCatalog';
+import HeroSection from './HeroSection';
+import MovieRow from './MovieRow';
 import FamilyManagement from './FamilyManagement';
 
 const DashboardScreen = () => {
   const [activeTab, setActiveTab] = useState<'catalog' | 'family'>('catalog');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const trendingMovies = [
+    { id: 1, title: 'Последняя капля', genre: 'Драма', rating: 8.9, year: 2024, isNew: true },
+    { id: 2, title: 'Ночной город', genre: 'Триллер', rating: 7.8, year: 2024, isNew: true },
+    { id: 3, title: 'Возвращение домой', genre: 'Комедия', rating: 8.2, year: 2023 },
+    { id: 4, title: 'Тени прошлого', genre: 'Детектив', rating: 8.5, year: 2024 },
+    { id: 5, title: 'Сердце океана', genre: 'Приключения', rating: 7.9, year: 2023 },
+  ];
+
+  const newReleases = [
+    { id: 6, title: 'Звездный путь', genre: 'Фантастика', rating: 8.9, year: 2024, isNew: true },
+    { id: 7, title: 'Забытые истории', genre: 'Драма', rating: 8.7, year: 2024, isNew: true },
+    { id: 8, title: 'Темная сторона', genre: 'Триллер', rating: 8.4, year: 2024, isNew: true },
+    { id: 9, title: 'Свет надежды', genre: 'Мелодрама', rating: 7.6, year: 2024 },
+    { id: 10, title: 'Игра теней', genre: 'Детектив', rating: 7.5, year: 2024 },
+  ];
+
+  const popularSeries = [
+    { id: 11, title: 'Космическая одиссея', genre: 'Фантастика', rating: 9.2, year: 2023 },
+    { id: 12, title: 'Потерянный рай', genre: 'Драма', rating: 8.9, year: 2023 },
+    { id: 13, title: 'Ветер перемен', genre: 'Приключения', rating: 8.6, year: 2023 },
+    { id: 14, title: 'Зов природы', genre: 'Документальный', rating: 8.8, year: 2024 },
+    { id: 15, title: 'Последний шанс', genre: 'Драма', rating: 8.0, year: 2023 },
+  ];
 
   return (
     <div className="min-h-screen">
@@ -36,7 +58,7 @@ const DashboardScreen = () => {
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  Каталог
+                  Главная
                 </button>
                 <button
                   onClick={() => setActiveTab('family')}
@@ -75,11 +97,20 @@ const DashboardScreen = () => {
         </div>
       </header>
 
-      <main className="pt-24 container mx-auto px-6 pb-12">
+      <main className="pt-20">
         {activeTab === 'catalog' ? (
-          <MovieCatalog searchQuery={searchQuery} />
+          <>
+            <HeroSection />
+            <div className="space-y-8 py-8">
+              <MovieRow title="В тренде" movies={trendingMovies} />
+              <MovieRow title="Новинки" movies={newReleases} />
+              <MovieRow title="Популярные сериалы" movies={popularSeries} />
+            </div>
+          </>
         ) : (
-          <FamilyManagement />
+          <div className="container mx-auto px-6 pt-8 pb-12">
+            <FamilyManagement />
+          </div>
         )}
       </main>
     </div>
