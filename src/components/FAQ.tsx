@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface FAQItem {
@@ -27,15 +27,40 @@ const faqData: FAQItem[] = [
 
 const FAQ = () => {
   const [openId, setOpenId] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const toggleQuestion = (id: number) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <div className="py-20 px-6" id="faq">
+    <div ref={sectionRef} className="py-20 px-6" id="faq">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
           <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent">
             Часто задаваемые вопросы
           </h2>
@@ -45,10 +70,16 @@ const FAQ = () => {
         </div>
 
         <div className="space-y-4">
-          {faqData.map((item) => (
+          {faqData.map((item, index) => (
             <div
               key={item.id}
-              className="bg-gray-950/50 rounded-xl border border-gray-800 hover:border-green-500/50 transition-all overflow-hidden"
+              className={`bg-gray-950/50 rounded-xl border border-gray-800 hover:border-green-500/50 transition-all overflow-hidden ${
+                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+              }`}
+              style={{ 
+                transitionDelay: `${index * 150}ms`,
+                transitionDuration: '600ms'
+              }}
             >
               <button
                 onClick={() => toggleQuestion(item.id)}
@@ -65,7 +96,7 @@ const FAQ = () => {
               </button>
               
               {openId === item.id && (
-                <div className="px-6 pb-5 pt-0">
+                <div className="px-6 pb-5 pt-0 animate-in fade-in slide-in-from-top-2 duration-300">
                   <p className="text-gray-300 leading-relaxed">
                     {item.answer}
                   </p>
@@ -75,9 +106,11 @@ const FAQ = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className={`mt-12 text-center transition-all duration-700 delay-500 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
           <p className="text-gray-400 mb-4">Не нашли ответ на свой вопрос?</p>
-          <button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold px-8 py-3 rounded-lg transition-all transform hover:scale-105">
+          <button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold px-8 py-3 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-green-500/20 hover:shadow-green-500/40">
             Связаться с поддержкой
           </button>
         </div>
