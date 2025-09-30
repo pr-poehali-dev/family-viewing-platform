@@ -3,10 +3,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import InvitationFlow from './InvitationFlow';
 
 interface FamilyMember {
   id: number;
@@ -15,6 +14,8 @@ interface FamilyMember {
   initials: string;
   isOwner: boolean;
   joinedDate: string;
+  status: 'active' | 'pending';
+  verificationMethod?: 'email' | 'phone';
 }
 
 const FamilyManagement = () => {
@@ -27,6 +28,7 @@ const FamilyManagement = () => {
       initials: 'АП',
       isOwner: true,
       joinedDate: '15.01.2024',
+      status: 'active',
     },
     {
       id: 2,
@@ -35,6 +37,8 @@ const FamilyManagement = () => {
       initials: 'МП',
       isOwner: false,
       joinedDate: '16.01.2024',
+      status: 'active',
+      verificationMethod: 'email',
     },
     {
       id: 3,
@@ -43,24 +47,15 @@ const FamilyManagement = () => {
       initials: 'ДИ',
       isOwner: false,
       joinedDate: '20.01.2024',
+      status: 'active',
+      verificationMethod: 'phone',
     },
   ]);
 
-  const [newMemberName, setNewMemberName] = useState('');
-  const [newMemberEmail, setNewMemberEmail] = useState('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [memberToRemove, setMemberToRemove] = useState<FamilyMember | null>(null);
 
-  const handleAddMember = () => {
-    if (!newMemberName || !newMemberEmail) {
-      toast({
-        title: 'Ошибка',
-        description: 'Заполните все поля',
-        variant: 'destructive',
-      });
-      return;
-    }
-
+  const handleInvitationSent = (contact: string, method: 'email' | 'phone', name: string) => {
     if (members.length >= 5) {
       toast({
         title: 'Ошибка',
@@ -70,7 +65,7 @@ const FamilyManagement = () => {
       return;
     }
 
-    const initials = newMemberName
+    const initials = name
       .split(' ')
       .map((n) => n[0])
       .join('')
@@ -78,22 +73,17 @@ const FamilyManagement = () => {
 
     const newMember: FamilyMember = {
       id: Date.now(),
-      name: newMemberName,
-      email: newMemberEmail,
+      name,
+      email: contact,
       initials,
       isOwner: false,
       joinedDate: new Date().toLocaleDateString('ru-RU'),
+      status: 'active',
+      verificationMethod: method,
     };
 
     setMembers([...members, newMember]);
-    setNewMemberName('');
-    setNewMemberEmail('');
     setIsAddDialogOpen(false);
-
-    toast({
-      title: 'Участник добавлен',
-      description: `${newMemberName} получит приглашение на почту`,
-    });
   };
 
   const handleRemoveMember = (member: FamilyMember) => {
@@ -159,58 +149,15 @@ const FamilyManagement = () => {
                 Добавить участника
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-gray-900 border-gray-800 text-white">
+            <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
               <DialogHeader>
-                <DialogTitle className="text-2xl">Добавить участника</DialogTitle>
+                <DialogTitle className="text-2xl">Добавить участника в семью</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-4 py-4">
-                <div>
-                  <Label htmlFor="name" className="text-gray-300 mb-2 block">Имя и фамилия</Label>
-                  <Input
-                    id="name"
-                    placeholder="Например: Иван Иванов"
-                    value={newMemberName}
-                    onChange={(e) => setNewMemberName(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="email" className="text-gray-300 mb-2 block">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="example@mail.com"
-                    value={newMemberEmail}
-                    onChange={(e) => setNewMemberEmail(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white"
-                  />
-                </div>
-
-                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                  <p className="text-sm text-green-400">
-                    <Icon name="Info" size={16} className="inline mr-2" />
-                    Участник получит приглашение на указанную почту
-                  </p>
-                </div>
-              </div>
-
-              <DialogFooter>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setIsAddDialogOpen(false)}
-                  className="border-gray-700 text-gray-300"
-                >
-                  Отмена
-                </Button>
-                <Button 
-                  onClick={handleAddMember}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold"
-                >
-                  Добавить
-                </Button>
-              </DialogFooter>
+              <InvitationFlow 
+                onInvitationSent={handleInvitationSent}
+                onCancel={() => setIsAddDialogOpen(false)}
+              />
             </DialogContent>
           </Dialog>
         </div>
@@ -245,9 +192,25 @@ const FamilyManagement = () => {
                         Владелец
                       </Badge>
                     )}
+                    {member.status === 'pending' && (
+                      <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50">
+                        Ожидает подтверждения
+                      </Badge>
+                    )}
                   </div>
                   <p className="text-gray-400">{member.email}</p>
-                  <p className="text-sm text-gray-500 mt-1">Присоединился: {member.joinedDate}</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <p className="text-sm text-gray-500">Присоединился: {member.joinedDate}</p>
+                    {member.verificationMethod && (
+                      <>
+                        <span className="text-gray-700">•</span>
+                        <div className="flex items-center gap-1 text-sm text-gray-500">
+                          <Icon name={member.verificationMethod === 'email' ? 'Mail' : 'Phone'} size={14} className="text-green-500" />
+                          <span>Подтвержден через {member.verificationMethod === 'email' ? 'email' : 'телефон'}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
