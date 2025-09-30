@@ -7,9 +7,17 @@ import MoviePlayer from './MoviePlayer';
 const HeroSection = () => {
   const [showPlayer, setShowPlayer] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     setIsLoaded(true);
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const heroMovie = {
@@ -23,11 +31,27 @@ const HeroSection = () => {
 
   return (
     <>
-      <div className="relative h-[85vh] -mt-20 pt-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
+      <div className="relative h-[85vh] -mt-20 pt-20 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"
+          style={{ 
+            opacity: Math.max(0, 1 - scrollY / 500)
+          }}
+        />
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"
+          style={{ 
+            opacity: Math.max(0, 1 - scrollY / 600)
+          }}
+        />
         
-        <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0"
+          style={{ 
+            transform: `translateY(${scrollY * 0.5}px) scale(${1 + scrollY * 0.0002})`,
+            willChange: 'transform'
+          }}
+        >
           <img 
             src="/img/1701ced8-0b79-4ea2-adc0-527790db323f.jpg" 
             alt="{heroMovie.title}"
@@ -37,7 +61,14 @@ const HeroSection = () => {
           />
         </div>
 
-        <div className="relative z-20 container mx-auto px-6 h-full flex items-center">
+        <div 
+          className="relative z-20 container mx-auto px-6 h-full flex items-center"
+          style={{ 
+            transform: `translateY(${scrollY * -0.3}px)`,
+            opacity: Math.max(0, 1 - scrollY / 400),
+            willChange: 'transform, opacity'
+          }}
+        >
           <div className={`max-w-2xl transition-all duration-1000 ${
             isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
           }`}>
