@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import HeroSection from './HeroSection';
 import MovieRow from './MovieRow';
 import FamilyManagement from './FamilyManagement';
+import Footer from './Footer';
 
 type Category = 'all' | 'drama' | 'comedy' | 'thriller' | 'fantasy' | 'action';
 
@@ -148,6 +149,8 @@ const DashboardScreen = () => {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 };

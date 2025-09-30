@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import InvitationFlow from './InvitationFlow';
 import ShareInvitation from './ShareInvitation';
+import FamilyHistory from './FamilyHistory';
 
 interface FamilyMember {
   id: number;
@@ -389,6 +390,10 @@ const FamilyManagement = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-8">
+        <FamilyHistory />
       </div>
     </div>
   );
