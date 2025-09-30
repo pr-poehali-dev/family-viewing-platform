@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
 import MoviePlayer from './MoviePlayer';
@@ -20,6 +20,29 @@ interface MovieRowProps {
 const MovieRow = ({ title, movies }: MovieRowProps) => {
   const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const rowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (rowRef.current) {
+      observer.observe(rowRef.current);
+    }
+
+    return () => {
+      if (rowRef.current) {
+        observer.unobserve(rowRef.current);
+      }
+    };
+  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = document.getElementById(`row-${title}`);
@@ -32,8 +55,10 @@ const MovieRow = ({ title, movies }: MovieRowProps) => {
 
   return (
     <>
-      <div className="mb-12 group">
-        <h2 className="text-2xl font-bold mb-4 px-6">{title}</h2>
+      <div ref={rowRef} className="mb-12 group">
+        <h2 className={`text-2xl font-bold mb-4 px-6 transition-all duration-500 ${
+          isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+        }`}>{title}</h2>
         
         <div className="relative">
           {scrollPosition > 0 && (
@@ -55,10 +80,14 @@ const MovieRow = ({ title, movies }: MovieRowProps) => {
             {movies.map((movie, index) => (
               <div
                 key={movie.id}
-                className="group/card relative flex-shrink-0 w-80 animate-fade-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
+                className={`group/card relative flex-shrink-0 w-80 transition-all duration-700 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ 
+                  transitionDelay: `${index * 100}ms`
+                }}
               >
-                <div className="relative overflow-hidden rounded-xl border border-gray-800 hover:border-green-500/50 transition-all hover:scale-105 cursor-pointer bg-gradient-to-br from-gray-900 to-gray-800">
+                <div className="relative overflow-hidden rounded-xl border border-gray-800 hover:border-green-500/50 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20 cursor-pointer bg-gradient-to-br from-gray-900 to-gray-800">
                   <div className="aspect-video relative group-hover/card:brightness-110 transition-all">
                     <img 
                       src={`/img/${[

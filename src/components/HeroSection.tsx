@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
@@ -6,6 +6,11 @@ import MoviePlayer from './MoviePlayer';
 
 const HeroSection = () => {
   const [showPlayer, setShowPlayer] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const heroMovie = {
     title: 'Последняя капля',
@@ -26,13 +31,19 @@ const HeroSection = () => {
           <img 
             src="/img/1701ced8-0b79-4ea2-adc0-527790db323f.jpg" 
             alt="{heroMovie.title}"
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-transform duration-[2000ms] ${
+              isLoaded ? 'scale-100' : 'scale-110'
+            }`}
           />
         </div>
 
         <div className="relative z-20 container mx-auto px-6 h-full flex items-center">
-          <div className="max-w-2xl animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
+          <div className={`max-w-2xl transition-all duration-1000 ${
+            isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+          }`}>
+            <div className={`flex items-center gap-3 mb-4 transition-all duration-700 delay-300 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               <Badge className="bg-red-500 text-white font-bold px-3 py-1 text-sm">
                 ХИТ
               </Badge>
@@ -42,11 +53,15 @@ const HeroSection = () => {
               </Badge>
             </div>
 
-            <h1 className="text-7xl font-bold mb-6 text-white leading-tight">
+            <h1 className={`text-7xl font-bold mb-6 text-white leading-tight transition-all duration-700 delay-500 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               {heroMovie.title}
             </h1>
 
-            <div className="flex items-center gap-4 text-lg text-gray-400 mb-6">
+            <div className={`flex items-center gap-4 text-lg text-gray-400 mb-6 transition-all duration-700 delay-700 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               <span>{heroMovie.year}</span>
               <span>•</span>
               <span>{heroMovie.genre}</span>
@@ -54,11 +69,15 @@ const HeroSection = () => {
               <span>{heroMovie.duration}</span>
             </div>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className={`text-xl text-gray-300 mb-8 leading-relaxed transition-all duration-700 delay-[900ms] ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               {heroMovie.description}
             </p>
 
-            <div className="flex gap-4">
+            <div className={`flex gap-4 transition-all duration-700 delay-[1100ms] ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               <Button
                 onClick={() => setShowPlayer(true)}
                 size="lg"
