@@ -272,17 +272,18 @@ const FamilyManagement = () => {
                   Добавить участника
                 </Button>
               </DialogTrigger>
-            <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
-              <DialogHeader>
-                <DialogTitle className="text-2xl">Добавить участника в семью</DialogTitle>
-              </DialogHeader>
-              
-              <InvitationFlow 
-                onInvitationSent={handleInvitationSent}
-                onCancel={() => setIsAddDialogOpen(false)}
-              />
-            </DialogContent>
-          </Dialog>
+              <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl">Добавить участника в семью</DialogTitle>
+                </DialogHeader>
+                
+                <InvitationFlow 
+                  onInvitationSent={handleInvitationSent}
+                  onCancel={() => setIsAddDialogOpen(false)}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         {availableSlots > 0 && (
