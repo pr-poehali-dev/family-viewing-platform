@@ -47,7 +47,7 @@ const WelcomeScreen = ({ onGetStarted }: WelcomeScreenProps) => {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-red-500 flex items-center justify-center shadow-xl shadow-green-500/20">
                 <Icon name="Play" size={32} className="text-black" />
               </div>
-              <span className="text-5xl font-bold bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent">
+              <span className="text-5xl font-bold bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-red-600">
                 START
               </span>
             </div>
