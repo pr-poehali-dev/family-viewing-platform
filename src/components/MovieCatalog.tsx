@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import MoviePlayer from './MoviePlayer';
 
 interface MovieCatalogProps {
   searchQuery: string;
 }
 
 const MovieCatalog = ({ searchQuery }: MovieCatalogProps) => {
+  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
   const movies = [
     { id: 1, title: 'Последняя капля', genre: 'Драма', rating: 8.9, year: 2024, duration: '2ч 15мин' },
     { id: 2, title: 'Ночной город', genre: 'Триллер', rating: 7.8, year: 2024, duration: '1ч 45мин' },
@@ -58,7 +61,10 @@ const MovieCatalog = ({ searchQuery }: MovieCatalogProps) => {
               </div>
 
               <div className="flex gap-2">
-                <button className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold py-2 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-500/20">
+                <button 
+                  onClick={() => setSelectedMovie(movie.title)}
+                  className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold py-2 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-500/20"
+                >
                   <Icon name="Play" size={18} />
                   Смотреть
                 </button>
@@ -80,6 +86,13 @@ const MovieCatalog = ({ searchQuery }: MovieCatalogProps) => {
           <Icon name="Search" size={64} className="text-gray-700 mx-auto mb-4" />
           <p className="text-xl text-gray-400">Ничего не найдено</p>
         </div>
+      )}
+
+      {selectedMovie && (
+        <MoviePlayer 
+          movieTitle={selectedMovie} 
+          onClose={() => setSelectedMovie(null)} 
+        />
       )}
     </div>
   );
