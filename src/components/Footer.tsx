@@ -82,7 +82,14 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Помощь</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-green-500 transition-colors text-sm">
+                <a 
+                  href="#faq" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-gray-400 hover:text-green-500 transition-colors text-sm cursor-pointer"
+                >
                   Часто задаваемые вопросы
                 </a>
               </li>

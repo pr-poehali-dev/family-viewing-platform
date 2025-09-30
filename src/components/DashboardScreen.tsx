@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import HeroSection from './HeroSection';
 import MovieRow from './MovieRow';
 import FamilyManagement from './FamilyManagement';
+import FAQ from './FAQ';
 import Footer from './Footer';
 
 type Category = 'all' | 'drama' | 'comedy' | 'thriller' | 'fantasy' | 'action';
@@ -55,7 +56,10 @@ const DashboardScreen = () => {
 
               <nav className="flex gap-6">
                 <button
-                  onClick={() => setActiveTab('catalog')}
+                  onClick={() => {
+                    setActiveTab('catalog');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`text-lg font-medium transition-colors ${
                     activeTab === 'catalog' 
                       ? 'text-green-500' 
@@ -74,6 +78,17 @@ const DashboardScreen = () => {
                 >
                   <Icon name="Users" size={20} />
                   Семья
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveTab('catalog');
+                    setTimeout(() => {
+                      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="text-lg font-medium text-gray-400 hover:text-white transition-colors"
+                >
+                  FAQ
                 </button>
               </nav>
             </div>
@@ -142,6 +157,7 @@ const DashboardScreen = () => {
               <MovieRow title="Новинки" movies={newReleases} />
               <MovieRow title="Популярные сериалы" movies={popularSeries} />
             </div>
+            <FAQ />
           </>
         ) : (
           <div className="container mx-auto px-6 pt-8 pb-12">
